@@ -6,17 +6,23 @@ using System.Threading.Tasks;
 
 namespace HangManStarterKit
 {
-    class HangmanGame
-    {
-		//Word you're trying to guess.
-        public string word;
-        public int tries = 0;
+	class HangmanGame
+	{
+		public int tries = 0;
+		public int hard = 5;
+		public int medium = 10;
+		public int easy = 20;
+		public int ezcakes = 90000000;
+		
+		public string word;
+       
         public List<char> guessedLetters = new List<char>();
         public List<char> foundLetters = new List<char>();
         List<string> wordBank = new List<string>{"fish","apple","tree", "dog", "rides", "scrambled" };
 		Player guesser;
 		public HangmanGame(Player guesser)
         {
+			
 			this.guesser = guesser;
             Random r = new Random();
             int index = r.Next(0,wordBank.Count);
@@ -38,17 +44,54 @@ namespace HangManStarterKit
             {
                 foundLetters.Add('_');
             }
-            Run();
+			
+			Run();
         }
 
         public void Run()
         {
-            while (HasWon() == false)
+			//bool diffRun = true;
+			//while (diffRun == true)
+			//{
+			//	Console.WriteLine("What difficulty would you like? \n1.Hard \n2.Medium \n3.Easy \n4.No Limit \n\n");
+			//	int.TryParse(Console.ReadLine(), out int diff);
+			//	if (diff == 1)
+			//	{
+			//		diff = hard;
+			//		diffRun = false;
+			//	}
+			//	else if (diff == 2)
+			//	{
+			//		diff = medium;
+			//		diffRun = false;
+			//	}
+
+			//	else if (diff == 3)
+			//	{
+			//		diff = easy;
+			//		diffRun = false;
+			//	}
+
+			//	else if (diff == 4)
+			//	{
+			//		diff = ezcakes;
+			//		diffRun = false;
+			//	}
+
+			//	else
+			//	{
+			//		Console.WriteLine("Sorry, I didn't catch that, try again");
+			//		diffRun = true;
+			//	}
+
+				
+			//}
+			while (HasWon() == false)
             {
-                Console.WriteLine();
+				
+				Console.WriteLine();
                 PrintProgress();
                 Console.WriteLine("Please guess a letter");
-				//char.TryParse(Console.ReadLine(), out char c);
 				char c = guesser.Guess();
 				
                 PlayRound(c);
@@ -69,28 +112,36 @@ namespace HangManStarterKit
             return true;
         }
 
-        public void PlayRound(char guess)
-        {
-            tries++;
-            if (guessedLetters.Contains(guess))
-            {
-                Console.WriteLine("You already guessed that!");
-            }
-            else if (word.Contains(guess))
-            {
-                Console.WriteLine("Found a letter!");
-                int index = word.IndexOf(guess);
-                foundLetters[index] = guess;
-                guessedLetters.Add(guess);
-            }
-            else
-            {
-                Console.WriteLine("No Letter found...");
-            }
-            Console.ReadLine();
-            Console.Clear();
-             
-        }
+		public void PlayRound(char guess)
+		{
+				tries++;
+				if (guessedLetters.Contains(guess))
+				{
+					Console.WriteLine("You already guessed that!");
+					
+				}
+				else if (word.Contains(guess))
+				{
+					
+					Console.WriteLine("Found a letter!");
+					for (int i = 0; i < word.Length; i++)
+					{
+						if (word[i] == guess)
+						{
+							foundLetters[i] = guess;
+						}
+					}
+					guessedLetters.Add(guess);
+				}
+				else
+				{
+					Console.WriteLine("No Letter found...");
+				}
+				//Console.ReadLine();
+				Console.Clear();
+
+			
+		}
 
         public void PrintProgress()
         {

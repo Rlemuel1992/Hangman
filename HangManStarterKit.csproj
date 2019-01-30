@@ -47,6 +47,7 @@
     <Compile Include="400IQMan.cs" />
     <Compile Include="ABCplayer.cs" />
     <Compile Include="BruteMan.cs" />
+    <Compile Include="Difficulty.cs" />
     <Compile Include="HangmanGame.cs" />
     <Compile Include="HumanPlayer.cs" />
     <Compile Include="Player.cs" />
